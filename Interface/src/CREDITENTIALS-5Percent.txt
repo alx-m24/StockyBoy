@@ -1,0 +1,3 @@
+Endpoint: https://paper-api.alpaca.markets/v2
+Key: PKNOBSCNDGHFRIWABPFZ455PG2
+Secret: DMR1rgMNA25fKustpdzv9e8dRdizfVmTBthr7iEh9LFJ

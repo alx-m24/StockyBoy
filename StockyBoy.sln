@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LexviEngine", "..\..\LexviEngine\LexviEngine.vcxproj", "{27947071-6B0B-4933-8557-66B7C3530092}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StockScraper", "StockScraper\StockScraper.vcxproj", "{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Interface", "Interface\Interface.vcxproj", "{A64EF879-0E16-4D5F-9048-1F502DB091BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{27947071-6B0B-4933-8557-66B7C3530092} = {27947071-6B0B-4933-8557-66B7C3530092}
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7} = {61F34C71-A00B-41EB-8688-EC46BCC992D7}
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1} = {EE4B75B9-9EDF-4A01-8709-1266960DFFB1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5PercentRule-Bot", "5PercentRule-Bot\5PercentRule-Bot.vcxproj", "{61F34C71-A00B-41EB-8688-EC46BCC992D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27947071-6B0B-4933-8557-66B7C3530092}.Debug|x64.ActiveCfg = Debug|x64
+		{27947071-6B0B-4933-8557-66B7C3530092}.Debug|x64.Build.0 = Debug|x64
+		{27947071-6B0B-4933-8557-66B7C3530092}.Debug|x86.ActiveCfg = Debug|Win32
+		{27947071-6B0B-4933-8557-66B7C3530092}.Debug|x86.Build.0 = Debug|Win32
+		{27947071-6B0B-4933-8557-66B7C3530092}.Release|x64.ActiveCfg = Release|x64
+		{27947071-6B0B-4933-8557-66B7C3530092}.Release|x64.Build.0 = Release|x64
+		{27947071-6B0B-4933-8557-66B7C3530092}.Release|x86.ActiveCfg = Release|Win32
+		{27947071-6B0B-4933-8557-66B7C3530092}.Release|x86.Build.0 = Release|Win32
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Debug|x64.ActiveCfg = Debug|x64
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Debug|x64.Build.0 = Debug|x64
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Debug|x86.ActiveCfg = Debug|Win32
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Debug|x86.Build.0 = Debug|Win32
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Release|x64.ActiveCfg = Release|x64
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Release|x64.Build.0 = Release|x64
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Release|x86.ActiveCfg = Release|Win32
+		{EE4B75B9-9EDF-4A01-8709-1266960DFFB1}.Release|x86.Build.0 = Release|Win32
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Debug|x64.ActiveCfg = Debug|x64
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Debug|x64.Build.0 = Debug|x64
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Debug|x86.ActiveCfg = Debug|Win32
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Debug|x86.Build.0 = Debug|Win32
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Release|x64.ActiveCfg = Release|x64
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Release|x64.Build.0 = Release|x64
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Release|x86.ActiveCfg = Release|Win32
+		{A64EF879-0E16-4D5F-9048-1F502DB091BA}.Release|x86.Build.0 = Release|Win32
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Debug|x64.ActiveCfg = Debug|x64
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Debug|x64.Build.0 = Debug|x64
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Debug|x86.ActiveCfg = Debug|Win32
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Debug|x86.Build.0 = Debug|Win32
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Release|x64.ActiveCfg = Release|x64
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Release|x64.Build.0 = Release|x64
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Release|x86.ActiveCfg = Release|Win32
+		{61F34C71-A00B-41EB-8688-EC46BCC992D7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF0BD63F-1D0F-445D-8694-FE3637EF88E9}
+	EndGlobalSection
+EndGlobal
