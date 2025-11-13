@@ -12,7 +12,7 @@
 *.env
 
 # CREDIENTIALS
-CREDITENTIALS-5Percent.txt
+Interface/src/CREDITENTIALS-5Percent.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
