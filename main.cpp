@@ -1,4 +1,5 @@
 #include <LexviEngine.hpp>
+#include <Utils/Logging.hpp>
 #include <iostream>
 
 #include "Application.hpp"
@@ -9,8 +10,7 @@
 
 int main() {
 #ifndef _DEBUG
-	std::ofstream logFile("log.txt");
-	auto coutBuf = std::cout.rdbuf(logFile.rdbuf());
+	Lexvi::RedirectLogToFile("log.txt");
 #endif
 
 	Lexvi::Engine engine;

@@ -3,8 +3,10 @@
 #include "StockScraper/Headers/Fetch.hpp"
 #include "5PercentRule-Bot/Headers/5PercentBot.hpp"
 
+#include <Utils/Logging.hpp>
 #include <imgui.h>
 #include <implot.h>
+#include <iostream>
 
 bool Application::loadResources(Lexvi::Engine&)
 {
@@ -17,9 +19,22 @@ bool Application::loadResources(Lexvi::Engine&)
             fivePercentAccount.Load(StockyBoy::Scraper::Alpaca::ACCOUNTS::FIVE_PERCENT);
 
             while (!shouldStop) {
+                std::chrono::seconds waitDuration;
                 bool algoExecuted = StockyBoy::Bots::FivePercentRule::Run("", fivePercentAccount);
 
-                std::chrono::minutes waitDuration = algoExecuted ? std::chrono::hours(24) : std::chrono::minutes(30);
+                if (algoExecuted) {
+                    LEXVI_LOG_INFO("[StockyBoy][5Percent] Trade cycle executed, next check in 24 hours.");
+                    
+                    //waitDuration = std::chrono::hours(24);
+                    waitDuration = std::chrono::seconds(5);
+                }
+                else {
+                    LEXVI_LOG_INFO("[StockyBoy][5Percent] No action taken this cycle, retrying in 30 minutes.");
+
+                    //waitDuration = std::chrono::minutes(30);
+                    waitDuration = std::chrono::seconds(1);
+                }
+
                 std::unique_lock<std::mutex> lock(algoMutex);
                 shutdownCV.wait_for(lock, waitDuration, [this] { return shouldStop.load(); });
             }

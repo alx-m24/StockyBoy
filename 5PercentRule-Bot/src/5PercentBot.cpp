@@ -20,9 +20,9 @@ namespace StockyBoy {
 				// Log all transaction
 				// Log current day to not re-run algorithm
 
-				printf("hi\n");
+				int random = rand() % 100;
 
-				return true;
+				return random < 10;
 			}
 		}
 	}
