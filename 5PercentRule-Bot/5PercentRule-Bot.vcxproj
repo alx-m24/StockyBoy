@@ -29,13 +29,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\5PercentBot.hpp" />
+    <ClInclude Include="Headers\Utils\ticker_labels.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Headers\Utils\ExtractTickers.py" />
+    <None Include="Headers\Utils\tickers.csv" />
     <None Include="src\README.md">
       <SubType>
       </SubType>
     </None>
+    <None Include="Utils\ExtractTickers.py" />
+    <None Include="Utils\tickers.csv" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -7,9 +7,12 @@
 #include <imgui.h>
 #include <implot.h>
 #include <iostream>
+#include <filesystem>
 
 bool Application::loadResources(Lexvi::Engine&)
 {
+    namespace fs = std::filesystem;
+
     this->ApplyModernOrangeTheme(); 
     shouldStop.store(false);
 
@@ -20,19 +23,19 @@ bool Application::loadResources(Lexvi::Engine&)
 
             while (!shouldStop) {
                 std::chrono::seconds waitDuration;
-                bool algoExecuted = StockyBoy::Bots::FivePercentRule::Run("", fivePercentAccount);
+                bool algoExecuted = StockyBoy::Bots::FivePercentRule::Run(fs::current_path().string() + "\\5PercentBot\\Log", fivePercentAccount, 3, 50.0f);
 
                 if (algoExecuted) {
                     LEXVI_LOG_INFO("[StockyBoy][5Percent] Trade cycle executed, next check in 24 hours.");
                     
-                    //waitDuration = std::chrono::hours(24);
-                    waitDuration = std::chrono::seconds(5);
+                    waitDuration = std::chrono::hours(24);
+                    //waitDuration = std::chrono::seconds(5);
                 }
                 else {
                     LEXVI_LOG_INFO("[StockyBoy][5Percent] No action taken this cycle, retrying in 30 minutes.");
 
-                    //waitDuration = std::chrono::minutes(30);
-                    waitDuration = std::chrono::seconds(1);
+                    waitDuration = std::chrono::minutes(30);
+                    //waitDuration = std::chrono::seconds(1);
                 }
 
                 std::unique_lock<std::mutex> lock(algoMutex);
@@ -66,7 +69,10 @@ void Application::render(Lexvi::Renderer& renderer) {
 // Shutdown
 // ============================================================================
 void Application::shutdown() {
-    shouldStop.store(true);
+    {
+        std::lock_guard<std::mutex> lock(algoMutex);
+        shouldStop = true;
+    }
     shutdownCV.notify_all();
 
     if (stockThread.joinable()) stockThread.join();

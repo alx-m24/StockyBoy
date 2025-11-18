@@ -137,7 +137,60 @@ namespace StockyBoy {
 					return Result::Fail("[StockyBoy][Alapaca] Account Wrongly/Not fully initialized");
 				}
 
-				return Result();
+				CURL* curl = curl_easy_init();
+				if (!curl) {
+					return Result::Fail("[StockyBoy][Alapaca] Failed to init Curl");
+				}
+
+				struct curl_slist* headers = nullptr;
+				headers = curl_slist_append(headers, ("APCA-API-KEY-ID: " + Key).c_str());
+				headers = curl_slist_append(headers, ("APCA-API-SECRET-KEY: " + Secret).c_str());
+				headers = curl_slist_append(headers, "accept: application/json");
+				headers = curl_slist_append(headers, "content-type: application/json");
+
+				auto cleanup = [&]() {
+					curl_slist_free_all(headers);
+					curl_easy_cleanup(curl);
+					};
+
+				// Build JSON body
+				std::string body = "{";
+				body += "\"type\":\"" + std::string(order.type == OrderType::MARKET ? "market" : "limit") + "\",";
+				body += "\"time_in_force\":\"day\",";
+				body += "\"symbol\":\"" + order.label + "\",";
+				body += "\"notional\":\"" + std::to_string(order.value) + "\",";
+				body += "\"side\":\"" + std::string(order.action == Action::BUY ? "buy" : "sell") + "\"";
+				body += "}";
+
+				std::string response;
+
+				curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+				curl_easy_setopt(curl, CURLOPT_URL, (EndPoint + "/orders").c_str());
+				curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+				curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
+
+				// POST setup
+				curl_easy_setopt(curl, CURLOPT_POST, 1L);
+				curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
+
+				CURLcode res = curl_easy_perform(curl);
+				if (res != CURLE_OK) {
+					cleanup();
+					return Result::Fail("[StockyBoy][Alpaca] Curl error: " + std::string(curl_easy_strerror(res)));
+				}
+
+				long httpCode = 0;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
+
+				if (httpCode < 200 || httpCode >= 300) {
+					cleanup();
+					return Result::Fail("[StockyBoy][Alpaca] HTTP error " + std::to_string(httpCode) +
+						" | Response: " + response);
+				}
+
+				cleanup();
+				return Result::Ok();
 			}
 
 			Result Account::GetBalance(float& balance)

@@ -23,6 +23,8 @@ namespace StockyBoy {
         struct Order {
             Action action;
             OrderType type;
+            float value;
+            std::string label;
         };
 
         namespace Alpaca { 
@@ -41,6 +43,7 @@ namespace StockyBoy {
             const inline std::array<std::string, (size_t)ACCOUNTS::COUNT> AccountName = {
                 "5Percent"
             };
+
             class Account {
             private:
                 std::string EndPoint{};

@@ -29,8 +29,15 @@
     <ClInclude Include="Headers\5PercentBot.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Utils\ticker_labels.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\README.md" />
+    <None Include="Utils\ExtractTickers.py" />
+    <None Include="Utils\tickers.csv" />
+    <None Include="Headers\Utils\tickers.csv" />
+    <None Include="Headers\Utils\ExtractTickers.py" />
   </ItemGroup>
 </Project>
