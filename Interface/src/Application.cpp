@@ -341,7 +341,7 @@ void Application::ShowStockPlot() {
             if (stockUI.showVolume)
                 ImPlot::SetupAxis(ImAxis_Y2, "Volume", ImPlotAxisFlags_AuxDefault);
 
-            ImPlot::SetNextLineStyle(ImVec4(0, 0.8f, 0, 1));
+            ImPlot::PushStyleColor(ImPlotCol_PlotBg, ImVec4(0, 0.8f, 0, 1));
             ImPlot::PlotLine("Close Price",
                 stockData.table.timeStamps.data(),
                 stockData.table.close.data(),
@@ -349,13 +349,15 @@ void Application::ShowStockPlot() {
 
             if (stockUI.showVolume) {
                 ImPlot::SetAxes(ImAxis_X1, ImAxis_Y2);
-                ImPlot::SetNextFillStyle(ImVec4(0.3f, 0.5f, 1.0f, 0.4f));
+                ImPlot::PushStyleColor(ImPlotCol_PlotBg, ImVec4(0.3f, 0.5f, 1.0f, 0.4f));
                 ImPlot::PlotBars("Volume",
                     stockData.table.timeStamps.data(),
                     stockData.table.volume.data(),
                     (int)stockData.table.volume.size(), 0.5);
                 ImPlot::SetAxes(ImAxis_X1, ImAxis_Y1);
+                ImPlot::PopStyleColor();
             }
+            ImPlot::PopStyleColor();
         }
         ImPlot::EndPlot();
     }

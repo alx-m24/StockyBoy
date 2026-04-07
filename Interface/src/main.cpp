@@ -1,6 +1,11 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include <LexviEngine.hpp>
+
 #include <Utils/Logging.hpp>
 #include <iostream>
+
 
 #include "Application.hpp"
 
@@ -27,22 +32,3 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
-
-#ifndef _DEBUG
-#if _WIN32
-
-#include <Windows.h>
-
-int APIENTRY WinMain(
-	_In_     HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_     LPSTR     lpCmdLine,
-	_In_     int       nCmdShow
-)
-{
-	return main();
-}
-
-
-#endif // _WIN32
-#endif // !_DEBUG
