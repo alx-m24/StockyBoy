@@ -40,11 +40,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(LexviEngine)
 
-# libcurl
+# libcurl with SSL
+set(CURL_USE_SCHANNEL ON CACHE BOOL "" FORCE)   # Windows-native SSL (no OpenSSL needed)
+set(CURL_USE_OPENSSL OFF CACHE BOOL "" FORCE)
+set(BUILD_CURL_EXE OFF CACHE BOOL "" FORCE)      
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)   
+set(CURL_DISABLE_TESTS ON CACHE BOOL "" FORCE)   
+set(HTTP_ONLY ON CACHE BOOL "" FORCE)            
+
 FetchContent_Declare(
     curl
     GIT_REPOSITORY https://github.com/curl/curl.git
-    GIT_TAG curl-8_3_0
+    GIT_TAG curl-8_11_1          # Latest stable as of 2025
 )
 FetchContent_MakeAvailable(curl)
 

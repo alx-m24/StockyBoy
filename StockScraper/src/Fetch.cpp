@@ -1,5 +1,6 @@
 #include "pch.h"
 
+#include <iostream>
 #include "Fetch.hpp"
 
 namespace StockyBoy {
@@ -7,6 +8,21 @@ namespace StockyBoy {
         size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
             ((std::string*)userp)->append((char*)contents, size * nmemb);
             return size * nmemb;
+        }
+
+        static std::string SanitizeLabel(const std::string& s)
+        {
+            std::string out;
+            out.reserve(s.size());
+        
+            for (unsigned char c : s)
+            {
+                // keep only printable ASCII
+                if (c >= 32 && c <= 126)
+                    out.push_back(c);
+            }
+        
+            return out;
         }
 
         Result Fetch(const std::string& label, INTERVAL interval, RANGE range, std::string& out_Data)
@@ -22,16 +38,19 @@ namespace StockyBoy {
             }
 
             // --- Build URL ---
-            const std::string url =
-                "https://query1.finance.yahoo.com/v8/finance/chart/" + label +
-                "?interval=" + StockyBoy::ToString(interval) +
-                "&range=" + StockyBoy::ToString(range);
+            const std::string base = "https://query1.finance.yahoo.com";
+            const std::string path = "/v8/finance/chart/";
+            const std::string url = base + path + SanitizeLabel(label) + "?interval=" + StockyBoy::ToString(interval) + "&range=" + StockyBoy::ToString(range); 
+
+            std::cout << url << std::endl;
 
             // --- Initialize CURL ---
             CURL* curl = curl_easy_init();
             if (!curl) {
                 return Result::Fail("[StockyBoy][Fetch] Failed to initialize CURL");
             }
+
+            std::cout << curl_version() << std::endl;
 
             // --- Cleanup scope ---
             auto cleanup = [&]() {
